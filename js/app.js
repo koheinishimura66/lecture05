@@ -36,9 +36,14 @@ var modulus = function(a, b){
 	return a % b;
 };
 
+var waribiki = function(a, b){
+	return a - a * b /100;
+};
+
+
 var isOperator = function(operator){
 	return operator == "+" || operator == "-" || operator == "*" ||
-	operator == "/" || operator == "%";
+	operator == "/" || operator == "%" || operator == "￥";
 };
 
 var isNumber = function(a){
@@ -75,11 +80,15 @@ var isSubtraction = function(operator, a, b){
 
 var isAddition = function(operator, a, b){
 	return operator == "+" && isNumber(a) && isNumber(b);
+};
+
+var isWaribiki = function(operator, a, b){
+	return operator == "￥" && isNumber(a) && isNumber(b);
 }
 
 var isReady = function(operator, a, b){
 	return isDivision(operator, a, b) || isModulus(operator, a, b) ||
-	isMultiplication(operator, a, b) || isSubtraction(operator, a, b) || isAddition(operator, a, b);
+	isMultiplication(operator, a, b) || isSubtraction(operator, a, b) || isAddition(operator, a, b) || isWaribiki(operator, a, b);
 };
 
 var startCalc = function(){
@@ -103,6 +112,8 @@ var startCalc = function(){
 			result = divide(operandA, operandB);
 		}else if(operator == "%"){
 			result = modulus(operandA, operandB);
+		}else if(operator == "￥"){
+			result = waribiki(operandA, operandB);
 		}
 		showResult(result);
 	}else{
